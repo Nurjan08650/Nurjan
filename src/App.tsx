@@ -1,5 +1,7 @@
 import { createContext, useState } from "react"
 import LoginPage from "./pages/login/ui"
+import RegisterPage from "./pages/register/ui"
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 
 export interface IUserTokenContext {
   token: string | null,
@@ -14,7 +16,13 @@ const App = () => {
 
   return (
     <UserTokenContext.Provider value={{ token, setToken }}>
-      <LoginPage />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/*" element={<Navigate to="/login" />} />
+        </Routes>
+      </BrowserRouter>
     </UserTokenContext.Provider>
   )
 }
